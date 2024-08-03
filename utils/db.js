@@ -8,7 +8,7 @@ class DBClient {
     const url = `mongodb://${host}:${port}`;
     this.connected = false;
 
-    this.client = new MongoClient(url, { useUnifiedTopology: true });
+    this.client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
     this.client.connect()
       .then(() => {
         this.db = this.client.db(database);
@@ -19,8 +19,8 @@ class DBClient {
   }
 
   isAlive() {
-    // const resp = this.client && this.client.topology && this.client.topology.isConnected();
-    const resp = this.client.isConnected();
+    const resp = this.client && this.client.topology && this.client.topology.isConnected();
+    // const resp = this.client.isConnected();
     return resp;
   }
 
