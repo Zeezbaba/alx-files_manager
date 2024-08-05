@@ -23,11 +23,14 @@ class RedisClient {
   }
 
   async get(key) {
+    console.log(`Fetching key: ${key}`);
     const resp = await this.getAsync(key);
+    console.log(`Value for key ${key}: ${resp}`);
     return resp;
   }
 
   async set(key, value, duration) {
+    console.log(`Setting key: ${key} with value: ${value} and duration: ${duration}`);
     await this.setAsync(key, value, 'EX', duration);
   }
 
