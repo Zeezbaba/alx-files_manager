@@ -57,6 +57,16 @@ class DBClient {
     }
   }
 
+  async getFileById(id) {
+    if (!ObjectId.isValid(id)) return null;
+    return this.db.collection('files').findOne({ _id: ObjectId(id) });
+  }
+
+  async createFile(fileData) {
+    const result = await this.db.collection('files').insertOne(fileData);
+    return result;
+  }
+
   async getUserByEmail(email) {
     return this.db.collection('users').findOne({ email });
   }
