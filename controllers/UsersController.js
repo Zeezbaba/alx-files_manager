@@ -26,6 +26,8 @@ class UsersController {
     const passwdHash = sha1(password);
     const newUser = await dbClient.createUser(email, passwdHash);
 
+    await userQueue.add({ userId });
+
     // const saveNewUser = await dbClient.db.collection('users').insertOne(newUser);
     return res.status(201).json({ id: newUser._id, email: newUser.email });
   }
